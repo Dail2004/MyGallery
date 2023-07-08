@@ -7,7 +7,8 @@ import retrofit2.http.Query
 interface PhotoApiService {
 
     @GET("/photos")
-    fun fetchPhotos(
+    suspend fun fetchPhotos(
         @Query("client_id") client_id: String,
     ): List<GalleryModel>
+
 }

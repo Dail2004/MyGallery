@@ -18,7 +18,11 @@ class GalleryViewModel @Inject constructor(
     private val _galleryState = MutableStateFlow<UIState<List<GalleryModel>>>(UIState.Loading())
     val galleryState: StateFlow<UIState<List<GalleryModel>>> = _galleryState.asStateFlow()
 
-    fun fetchGallery() {
+    init {
+        fetchGallery()
+    }
+
+    private fun fetchGallery() {
         repository.fetchPhotos().collectRequests(_galleryState) {
             it.map { data -> data }
         }

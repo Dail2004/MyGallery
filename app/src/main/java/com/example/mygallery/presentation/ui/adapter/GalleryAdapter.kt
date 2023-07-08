@@ -9,13 +9,23 @@ import com.example.mygallery.common.base.BaseComparator
 import com.example.mygallery.data.local.model.GalleryModel
 import com.example.mygallery.databinding.ItemGalleryBinding
 
-class GalleryAdapter :
+class GalleryAdapter(
+    val onItemClick: (image: String) -> Unit,
+) :
     ListAdapter<GalleryModel, GalleryAdapter.GalleryViewHolder>(BaseComparator()) {
-    class GalleryViewHolder(
+    inner class GalleryViewHolder(
         private val binding: ItemGalleryBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            itemView.setOnClickListener {
+                getItem(adapterPosition)?.apply {
+                    onItemClick(urls.full)
+                }
+            }
+        }
+
         fun onBind(model: GalleryModel) {
-            Glide.with(binding.photo).load(model.urls.raw).into(binding.photo)
+            Glide.with(binding.photo).load(model.urls.full).into(binding.photo)
         }
     }
 
