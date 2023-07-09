@@ -10,17 +10,15 @@ import java.util.concurrent.TimeUnit
 class RetrofitClient {
     private val okHttpClient: OkHttpClient = OkHttpClient()
         .newBuilder()
-        .addInterceptor(provideLoggingInterceptor())
+        .addInterceptor(provideHttpLoggingInterceptor())
         .connectTimeout(30, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
         .writeTimeout(30, TimeUnit.SECONDS)
         .build()
 
-    private fun provideLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
-    }
+    private fun provideHttpLoggingInterceptor() = HttpLoggingInterceptor().setLevel(
+        HttpLoggingInterceptor.Level.BODY
+    )
 
     private val provideRetrofit = Retrofit.Builder()
         .baseUrl("https://api.unsplash.com/")

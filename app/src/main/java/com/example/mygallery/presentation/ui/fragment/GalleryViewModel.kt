@@ -1,7 +1,8 @@
 package com.example.mygallery.presentation.ui.fragment
 
+import com.example.mygallery.common.base.BaseFetchRequest
 import com.example.mygallery.common.base.BaseViewModel
-import com.example.mygallery.data.local.model.GalleryModel
+import com.example.mygallery.data.model.GalleryModel
 import com.example.mygallery.data.repository.PhotosRepository
 import com.example.mygallery.presentation.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,17 +14,19 @@ import javax.inject.Inject
 @HiltViewModel
 class GalleryViewModel @Inject constructor(
     private val repository: PhotosRepository
-) : BaseViewModel() {
+) : BaseViewModel(), BaseFetchRequest {
+
+    override var per_page = 10
 
     private val _galleryState = MutableStateFlow<UIState<List<GalleryModel>>>(UIState.Loading())
     val galleryState: StateFlow<UIState<List<GalleryModel>>> = _galleryState.asStateFlow()
 
     init {
-        fetchGallery()
+        fetchGallery(10)
     }
 
-    private fun fetchGallery() {
-        repository.fetchPhotos().collectRequests(_galleryState) {
+    override fun fetchGallery(per_page: Int) {
+        repository.fetchPhotos(per_page).collectRequests(_galleryState) {
             it.map { data -> data }
         }
     }

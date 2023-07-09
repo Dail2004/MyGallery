@@ -1,4 +1,4 @@
-package com.example.mygallery.data.local.model
+package com.example.mygallery.data.model
 
 import com.example.mygallery.common.base.IBaseDiffModel
 

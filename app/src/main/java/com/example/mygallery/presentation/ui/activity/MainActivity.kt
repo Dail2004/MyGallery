@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
+    private lateinit var bottomNavigationItemReselectListener: OnBottomNavigationItemReselect
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,5 +22,13 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
+    }
+
+    fun interface OnBottomNavigationItemReselect {
+        fun onItemReselect()
+    }
+
+    fun setOnBottomNavigationItemReselectListener(bottomNavigationItemReselectListener: OnBottomNavigationItemReselect) {
+        this.bottomNavigationItemReselectListener = bottomNavigationItemReselectListener
     }
 }

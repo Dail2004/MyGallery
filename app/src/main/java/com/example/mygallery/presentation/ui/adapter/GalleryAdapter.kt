@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mygallery.common.base.BaseComparator
-import com.example.mygallery.data.local.model.GalleryModel
+import com.example.mygallery.data.model.GalleryModel
 import com.example.mygallery.databinding.ItemGalleryBinding
 
 class GalleryAdapter(
